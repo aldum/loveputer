@@ -38,7 +38,7 @@ jobs:
           luarocks --local install luautf8
 
       - name: run unit tests
-        run: busted tests -o utfTerminal
+        run: PARSER_DEBUG=1 busted tests -o utfTerminal
 
   build-love:
     runs-on: ubuntu-latest
