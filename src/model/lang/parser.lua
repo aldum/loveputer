@@ -1,6 +1,7 @@
 require("util.string")
 require("util.dequeue")
 
+
 return function(lib)
   local add_paths = {
     '',
@@ -14,6 +15,8 @@ return function(lib)
     local lib_paths = string.join(add_paths, ';src/')
     package.path = package.path .. lib_paths
   end
+
+  -- require 'metalua.metalua.loader'
 
   local mlc = require('metalua.metalua.compiler').new()
 
@@ -52,6 +55,10 @@ return function(lib)
   --- @return table|string ast|errmsg
   local parse_stream = function(stream)
     return mlc:lexstream_to_ast(stream)
+  end
+
+  local ast_to_src = function(ast, ...)
+    return mlc:ast_to_src(ast, ...)
   end
 
 
@@ -257,5 +264,7 @@ return function(lib)
     pprint         = pprint,
     get_error      = get_error,
     syntax_hl      = syntax_hl,
+
+    ast_to_src     = ast_to_src,
   }
 end
